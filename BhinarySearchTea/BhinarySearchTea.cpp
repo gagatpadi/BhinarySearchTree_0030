@@ -9,46 +9,63 @@ public:
 	Node* leftchild;
 	Node* rightchild;
 
-	//constructor for the node class
 	Node(string i, Node* l, Node* r)
 	{
 		info = i;
 		leftchild = l;
 		rightchild = r;
-
 	}
 };
+
 class BinaryTree
 {
 public:
 	Node* ROOT;
-	
+
 	BinaryTree()
 	{
-		ROOT = nullptr; // Initializing Root to null
+		ROOT = nullptr;
 	}
 
-	void insert(string element) // Insert a node in the binary search tree
+	void insert(string element)
 	{
-		Node* newNode = new Node(element, nullptr, nullptr); // Allocate memory for the new node
-		newNode->info = element; // assign value to the data field of the new data
-		newNode->leftchild = nullptr; // make the left child of the new node point tol Null
-		newNode->rightchild = nullptr; // make the right child of the new data point to Null
+		Node* newNode = new Node(element, nullptr, nullptr);
+		newNode->info = element;
+		newNode->leftchild = nullptr;
+		newNode->rightchild = nullptr;
 
 		Node* parent = nullptr;
 		Node* currentNode = nullptr;
-		search(element, parent, currentNode); // locate the node which be the parent of the node to be insert
+		search(element, parent, currentNode);
 
-		if (parent == nullptr) // if the parent is null (tree is emprty)
+		if (parent == nullptr)
 		{
-			ROOT = newNode; // // mark the new node as root
-			return; // exit
+			ROOT = newNode;
+			return;
 		}
 
-		if (element < parent->info) // if the value in the data field pf the new node is less than that of the parent
+		if (element < parent->info)
 		{
-			parent->leftchild = newNode; // Make the left child of the parent point to the new node		
+			parent->leftchild = newNode;
 		}
-		else if (element > parent->info) // if the value in the data field of the new data is greater than that of the parent
+		else if (element > parent->info)
+		{
+			parent->rightchild = newNode;
+		}
+
 	}
-};
+
+	void search(string element, Node*& parent, Node*& currentNode)
+	{
+		currentNode = ROOT;
+		parent = NULL;
+		while ((currentNode != NULL) && currentNode->info != element)
+		{
+			parent = currentNode;
+			if (element < currentNode->info)
+				currentNode = currentNode->leftchild;
+			else
+				currentNode = currentNode->rightchild;
+		}
+	}
+	
